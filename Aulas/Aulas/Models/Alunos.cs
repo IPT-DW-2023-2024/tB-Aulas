@@ -1,7 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Aulas.Models {
-   public class Alunos {
+
+   // Alunos é uma extensão de Utilizadores
+   public class Alunos : Utilizadores {
 
 
       public Alunos() {

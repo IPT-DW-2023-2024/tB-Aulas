@@ -1,5 +1,7 @@
 ﻿namespace Aulas.Models {
-   public class Professores {
+
+   // Professores é uma extensão de Utilizadores
+   public class Professores : Utilizadores {
 
       public Professores() {
          ListaUCs=new HashSet<UnidadesCurriculares>();
