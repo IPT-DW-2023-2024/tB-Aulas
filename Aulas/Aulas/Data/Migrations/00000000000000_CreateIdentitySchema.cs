@@ -6,6 +6,7 @@ using System;
 namespace Aulas.Data.Migrations {
    public partial class CreateIdentitySchema : Migration {
       protected override void Up(MigrationBuilder migrationBuilder) {
+     
          migrationBuilder.CreateTable(
              name: "AspNetRoles",
              columns: table => new {

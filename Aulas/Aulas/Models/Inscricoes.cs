@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Aulas.Models {
 
-   [PrimaryKey(nameof(UCFK),nameof(AlunoFK))] // PK composta, na EF > 6.0
+   [PrimaryKey(nameof(UCFK), nameof(AlunoFK))] // PK composta, na EF > 6.0
    public class Inscricoes {
 
       public DateTime DataInscricao { get; set; }
@@ -19,7 +19,7 @@ namespace Aulas.Models {
 
       // FK para a tabela das Unidades Curriculares
       [ForeignKey(nameof(UC))]
-   //   [Key] // PK composta, na EF <= 6.0
+      //   [Key] // PK composta, na EF <= 6.0
       public int UCFK { get; set; }
       public UnidadesCurriculares UC { get; set; }
 
