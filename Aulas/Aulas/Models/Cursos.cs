@@ -1,6 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
 namespace Aulas.Models {
+
+   /// <summary>
+   /// Classe para descrever os Cursos existentes na Escola
+   /// </summary>
    public class Cursos {
 
 
@@ -9,11 +13,20 @@ namespace Aulas.Models {
          ListaAlunos = new HashSet<Alunos>();
       }
 
-      [Key]  // PK
+      /// <summary>
+      /// Chave Primária (PK)
+      /// </summary>
+      [Key] 
       public int Id { get; set; }
 
+      /// <summary>
+      /// Nome do Curso
+      /// </summary>
       public string Nome { get; set; }
 
+      /// <summary>
+      /// Nome do ficheiro que contém o logótipo do Curso
+      /// </summary>
       public string Logotipo { get; set; }
 
       /* ************************************************
@@ -21,9 +34,15 @@ namespace Aulas.Models {
        * *********************************************** */
 
       // relacionamento com as Unidades Curriculares
+      /// <summary>
+      /// Lista das Unidades Curriculares associadas ao Curso
+      /// </summary>
       public ICollection<UnidadesCurriculares> ListaUCs { get; set; }
       
       // relacionamento com os Alunos
+      /// <summary>
+      /// Lista dos alunos inscritos no Curso
+      /// </summary>
       public ICollection<Alunos> ListaAlunos { get; set; }
 
    }

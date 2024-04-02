@@ -14,12 +14,30 @@ namespace Aulas.Data {
       }
 
         // definição das 'tabelas'
+        /// <summary>
+        /// Tabela Utilizadores
+        /// </summary>
         public DbSet<Utilizadores>  Utilizadores { get; set; }
-        public DbSet<Alunos> Alunos { get; set; }
-        public DbSet<Professores> Professores { get; set; }
-        public DbSet<Cursos> Cursos { get; set; }
-        public DbSet<UnidadesCurriculares> UCs { get; set; }
-        public DbSet<Inscricoes> Inscricoes { get; set; }
+      /// <summary>
+      /// tabela Alunos
+      /// </summary>
+      public DbSet<Alunos> Alunos { get; set; }
+      /// <summary>
+      /// tabela Professores
+      /// </summary>
+      public DbSet<Professores> Professores { get; set; }
+    /// <summary>
+    /// Tabela Cursos
+    /// </summary>
+      public DbSet<Cursos> Cursos { get; set; }
+   /// <summary>
+   /// tabela Unidades Curriculares
+   /// </summary>
+      public DbSet<UnidadesCurriculares> UCs { get; set; }
+    /// <summary>
+    /// tabela Inscrições
+    /// </summary>
+      public DbSet<Inscricoes> Inscricoes { get; set; }
 
 
     }
