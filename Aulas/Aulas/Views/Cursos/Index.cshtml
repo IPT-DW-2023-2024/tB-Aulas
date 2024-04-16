@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<Aulas.Models.Cursos>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Início";
 }
 
-<h1>Index</h1>
+<h1>Lista de Cursos</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Novo Curso</a>
 </p>
 <table class="table">
     <thead>
@@ -28,7 +28,20 @@
                 @Html.DisplayFor(modelItem => item.Nome)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Logotipo)
+                @* vou mudar o nome da imagem para a imagem, 
+                   propriamente dita
+                *@
+
+               <img src="~/Imagens/@Html.DisplayFor(modelItem => item.Logotipo)"
+                    alt="logo do curso @Html.DisplayFor(modelItem => item.Nome)"
+                    title="@Html.DisplayFor(modelItem => item.Nome)"
+                    width="100px"
+                    />
+               @*outra forma de mostrar a imagem, usando a variável do ForEach*@
+               <img src="~/Imagens/@item.Logotipo"
+                    alt="logo do curso @item.Nome"
+                    title="@item.Nome"
+                    width="100px" />
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
