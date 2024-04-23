@@ -1,62 +1,70 @@
 ﻿@model Aulas.Models.Alunos
 
 @{
-    ViewData["Title"] = "Create";
+   ViewData["Title"] = "Adicionar Alunos";
 }
 
-<h1>Create</h1>
+<h1>Adicionar um novo Aluno</h1>
 
-<h4>Alunos</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="NumAluno" class="control-label"></label>
-                <input asp-for="NumAluno" class="form-control" />
-                <span asp-validation-for="NumAluno" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Propinas" class="control-label"></label>
-                <input asp-for="Propinas" class="form-control" />
-                <span asp-validation-for="Propinas" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DataMatricula" class="control-label"></label>
-                <input asp-for="DataMatricula" class="form-control" />
-                <span asp-validation-for="DataMatricula" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CursoFK" class="control-label"></label>
-                <select asp-for="CursoFK" class ="form-control" asp-items="ViewBag.CursoFK"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="Nome" class="control-label"></label>
-                <input asp-for="Nome" class="form-control" />
-                <span asp-validation-for="Nome" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DataNascimento" class="control-label"></label>
-                <input asp-for="DataNascimento" class="form-control" />
-                <span asp-validation-for="DataNascimento" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Telemovel" class="control-label"></label>
-                <input asp-for="Telemovel" class="form-control" />
-                <span asp-validation-for="Telemovel" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
+   <div class="col-md-4">
+      <form asp-action="Create">
+         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+         <div class="form-group">
+            <label asp-for="NumAluno" class="control-label"></label>
+            <input asp-for="NumAluno" class="form-control" />
+            <span asp-validation-for="NumAluno" class="text-danger"></span>
+         </div>
+         <div class="form-group">
+             @*
+                 vcamos usar a variável auxiliar para ler os dados
+                 da PROPINA para evitar os constrangimentos do
+                 processamento de vars. do tipo DECIMAL
+             *@
+            <label asp-for="PropinasAux" class="control-label"></label>
+            <input asp-for="PropinasAux" class="form-control" />
+            <span asp-validation-for="PropinasAux" class="text-danger"></span>
+         </div>
+         <div class="form-group">
+            <label asp-for="DataMatricula" class="control-label"></label>
+            <input asp-for="DataMatricula" class="form-control" />
+            <span asp-validation-for="DataMatricula" class="text-danger"></span>
+         </div>
+         <div class="form-group">
+            <label asp-for="CursoFK" class="control-label"></label>
+            <select asp-for="CursoFK" class="form-control" asp-items="ViewBag.CursoFK"></select>
+         </div>
+         <div class="form-group">
+            <label asp-for="Nome" class="control-label"></label>
+            <input asp-for="Nome" class="form-control" />
+            <span asp-validation-for="Nome" class="text-danger"></span>
+         </div>
+         <div class="form-group">
+            <label asp-for="DataNascimento" class="control-label"></label>
+            <input asp-for="DataNascimento" class="form-control" />
+            <span asp-validation-for="DataNascimento" class="text-danger"></span>
+         </div>
+         <div class="form-group">
+            <label asp-for="Telemovel" class="control-label"></label>
+            <input asp-for="Telemovel" class="form-control" />
+            <span asp-validation-for="Telemovel" class="text-danger"></span>
+         </div>
+         <div class="form-group">
+            <br />
+            <input type="submit" value="Create" class="btn btn-primary" />
+         </div>
+      </form>
+   </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+   <br />
+   <a asp-action="Index">Regressar à Listagem dos Alunos</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+   @{
+      await Html.RenderPartialAsync("_ValidationScriptsPartial");
+   }
 }

@@ -19,6 +19,18 @@ namespace Aulas.Models {
       public int NumAluno { get; set; }
 
       /// <summary>
+      /// atributo auxiliar para ler o valor da Propina
+      /// na inteface
+      /// </summary>
+      [NotMapped] // não representa este atributo na BD
+      [StringLength(8)]
+      [Display(Name = "Propina")]
+      [Required(ErrorMessage = "A {0} é obrigatória.")]
+      [RegularExpression("[0-9]+[.,]?[0-9]{0,2}",
+         ErrorMessage = "só aceita digitos numéricos, separados por . ou por ,")]
+      public string PropinasAux { get; set; }
+
+      /// <summary>
       /// Valor a pagar pelo Aluno como propina pela frequência do Curso
       /// </summary>
       public decimal Propinas { get; set; }
@@ -27,7 +39,7 @@ namespace Aulas.Models {
       /// <summary>
       /// Data da Matrícula
       /// </summary>
-      [DisplayFormat(ApplyFormatInEditMode = true, 
+      [DisplayFormat(ApplyFormatInEditMode = true,
                      DataFormatString = "{0:dd-MM-yyyy}")]
       public DateTime DataMatricula { get; set; }
 
@@ -41,9 +53,9 @@ namespace Aulas.Models {
       /// </summary>
       [ForeignKey(nameof(Curso))] // anotação que liga CursoFK a Curso
       public int CursoFK { get; set; } // Será FK para a tabela Cursos
-    /// <summary>
-    /// FK para o Curso
-    /// </summary>
+      /// <summary>
+      /// FK para o Curso
+      /// </summary>
       public Cursos Curso { get; set; }  // em rigor esta instrução seria a única necessária
 
       // relacionamento do tipo N-M, COM atributos do relacionamento

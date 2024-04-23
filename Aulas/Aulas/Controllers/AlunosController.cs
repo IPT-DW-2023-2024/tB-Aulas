@@ -56,14 +56,20 @@ namespace Aulas.Controllers {
       // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
       [HttpPost]
       [ValidateAntiForgeryToken]
-      public async Task<IActionResult> Create([Bind("NumAluno,Propinas,DataMatricula,CursoFK,Id,Nome,DataNascimento,Telemovel")] Alunos alunos) {
+      public async Task<IActionResult> Create([Bind("NumAluno,Propinas,PropinasAux,DataMatricula,CursoFK,Nome,DataNascimento,Telemovel")] Alunos aluno) {
+        
+         
          if (ModelState.IsValid) {
-            _context.Add(alunos);
+
+            // transferir o valor de PropinasAux para Propinas
+            aluno.Propinas = Convert.ToDecimal( aluno.PropinasAux.Replace('.',',')   );
+
+            _context.Add(aluno);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
          }
-         ViewData["CursoFK"] = new SelectList(_context.Cursos, "Id", "Id", alunos.CursoFK);
-         return View(alunos);
+         ViewData["CursoFK"] = new SelectList(_context.Cursos, "Id", "Id", aluno.CursoFK);
+         return View(aluno);
       }
 
       // GET: Alunos/Edit/5
