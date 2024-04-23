@@ -18,6 +18,9 @@ namespace Aulas.Models {
       /// <summary>
       /// Data de Nascimento
       /// </summary>
+      [DataType(DataType.Date)] // informa a View de como deve tratar este atributo
+      [DisplayFormat(ApplyFormatInEditMode = true,
+                     DataFormatString = "{0:dd-MM-yyyy}")]
       public DateOnly DataNascimento { get; set; }
 
       /// <summary>
