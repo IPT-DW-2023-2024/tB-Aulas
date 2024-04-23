@@ -22,12 +22,15 @@ namespace Aulas.Models {
       /// <summary>
       /// Nome do Curso
       /// </summary>
+      [StringLength(100)]
       public string Nome { get; set; }
 
       /// <summary>
       /// Nome do ficheiro que contém o logótipo do Curso
       /// </summary>
-      public string Logotipo { get; set; }
+      [Display(Name ="Logótipo")] // altera o nome do atributo no ecrã
+      [StringLength(50)] // define o tamanho máximo como 50 caracteres
+      public string? Logotipo { get; set; } // o ? torna o preenchimento facultativo
 
       /* ************************************************
        * Vamos criar as Relações (FKs) com outras tabelas
