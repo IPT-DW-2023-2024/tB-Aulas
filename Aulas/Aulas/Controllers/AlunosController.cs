@@ -57,18 +57,34 @@ namespace Aulas.Controllers {
       [HttpPost]
       [ValidateAntiForgeryToken]
       public async Task<IActionResult> Create([Bind("NumAluno,Propinas,PropinasAux,DataMatricula,CursoFK,Nome,DataNascimento,Telemovel")] Alunos aluno) {
-        
-         
+
+
          if (ModelState.IsValid) {
 
-            // transferir o valor de PropinasAux para Propinas
-            aluno.Propinas = Convert.ToDecimal( aluno.PropinasAux.Replace('.',',')   );
+            try {
+               // transferir o valor de PropinasAux para Propinas
+               aluno.Propinas = Convert.ToDecimal(aluno.PropinasAux.Replace('.', ','));
 
-            _context.Add(aluno);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+               _context.Add(aluno);
+               await _context.SaveChangesAsync();
+
+               return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex) {
+               // se cheguei aqui é pq aconteceu um problema
+               // crítico. TEM de ser tratado.
+               //    - devolver o controlo ao utilizador
+               //    - corrigir o erro
+               //    - escrever os dados do erro num LOG
+               //    - escrever os dados do erro numa tabela da BD
+               //    - etc.
+               throw;
+            }
+
          }
-         ViewData["CursoFK"] = new SelectList(_context.Cursos, "Id", "Id", aluno.CursoFK);
+
+         // se chego aqui é pq alguma correu mal
+         ViewData["CursoFK"] = new SelectList(_context.Cursos.OrderBy(c => c.Nome), "Id", "Nome", aluno.CursoFK);
          return View(aluno);
       }
 
@@ -135,6 +151,10 @@ namespace Aulas.Controllers {
       [HttpPost, ActionName("Delete")]
       [ValidateAntiForgeryToken]
       public async Task<IActionResult> DeleteConfirmed(int id) {
+       
+         // Nas ações de DELETE também é crucial a existência
+         // de Try Catch         
+         
          var alunos = await _context.Alunos.FindAsync(id);
          if (alunos != null) {
             _context.Alunos.Remove(alunos);
