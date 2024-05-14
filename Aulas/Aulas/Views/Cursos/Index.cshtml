@@ -1,42 +1,43 @@
 ﻿@model IEnumerable<Aulas.Models.Cursos>
 
 @{
-    ViewData["Title"] = "Início";
+   ViewData["Title"] = "Início";
 }
 
 <h1>Lista de Cursos</h1>
 
-<p>
-    <a asp-action="Create">Novo Curso</a>
-</p>
+@if (User.Identity.IsAuthenticated) {
+   <p>
+      <a asp-action="Create">Novo Curso</a>
+   </p>
+}
 <table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Nome)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Logotipo)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
+   <thead>
+      <tr>
+         <th>
+            @Html.DisplayNameFor(model => model.Nome)
+         </th>
+         <th>
+            @Html.DisplayNameFor(model => model.Logotipo)
+         </th>
+         <th></th>
+      </tr>
+   </thead>
+   <tbody>
+      @foreach (var item in Model) {
+         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Nome)
+               @Html.DisplayFor(modelItem => item.Nome)
             </td>
             <td>
-                @* vou mudar o nome da imagem para a imagem, 
-                   propriamente dita
-                *@
+               @* vou mudar o nome da imagem para a imagem,
+            propriamente dita
+            *@
 
                <img src="~/Imagens/@Html.DisplayFor(modelItem => item.Logotipo)"
                     alt="logo do curso @Html.DisplayFor(modelItem => item.Nome)"
                     title="@Html.DisplayFor(modelItem => item.Nome)"
-                    width="100px"
-                    />
+                    width="100px" />
                @*outra forma de mostrar a imagem, usando a variável do ForEach*@
                <img src="~/Imagens/@item.Logotipo"
                     alt="logo do curso @item.Nome"
@@ -44,11 +45,15 @@
                     width="100px" />
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+               @if (User.Identity.IsAuthenticated) {
+                  <text>
+                     <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                     <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                     <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                  </text>
+               }
             </td>
-        </tr>
-}
-    </tbody>
+         </tr>
+      }
+   </tbody>
 </table>
