@@ -22,9 +22,11 @@
                   <li class="nav-item">
                      <a class="nav-link text-dark" asp-area="" asp-controller="Cursos" asp-action="Index" title="Mostra os dados dos Cursos">Cursos</a>
                   </li>
-                  <li class="nav-item">
-                     <a class="nav-link text-dark" asp-area="" asp-controller="Alunos" asp-action="Index" title="Mostra os dados dos Alunos">Alunos</a>
-                  </li>
+                  @if (User.Identity.IsAuthenticated) {
+                     <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Alunos" asp-action="Index" title="Mostra os dados dos Alunos">Alunos</a>
+                     </li>
+                  }
                   <li class="nav-item">
                      <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacidade</a>
                   </li>

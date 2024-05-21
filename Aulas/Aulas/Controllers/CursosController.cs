@@ -7,8 +7,14 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Aulas.Data;
 using Aulas.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Aulas.Controllers {
+
+
+   [Authorize]  // qq tarefa desta classe só pode ser efetuada
+   // por pessoas autorizadas (ie. autenticadas)
+   // exceto se se criar uma exceção
    public class CursosController : Controller {
 
       /// <summary>
@@ -30,6 +36,12 @@ namespace Aulas.Controllers {
       }
 
       // GET: Cursos
+      /// <summary>
+      /// mostra todos os cursos existentes na BD
+      /// </summary>
+      /// <returns></returns>
+      [AllowAnonymous] // esta anotação isenta da obrigação
+      // do utilizador estar aautenticado
       public async Task<IActionResult> Index() {
          return View(await _context.Cursos.ToListAsync());
       }
@@ -139,19 +151,19 @@ namespace Aulas.Controllers {
                   _webHostEnvironment.WebRootPath;
                // já sei o caminho até à pasta wwwroot
                // especifico onde vou guardar a imagem
-               nomePastaOndeGuardarImagem = 
-                  Path.Combine(nomePastaOndeGuardarImagem,"Imagens");
+               nomePastaOndeGuardarImagem =
+                  Path.Combine(nomePastaOndeGuardarImagem, "Imagens");
                // e, existe a pasta 'Imagens'?
                if (!Directory.Exists(nomePastaOndeGuardarImagem)) {
                   Directory.CreateDirectory(nomePastaOndeGuardarImagem);
                }
                // juntar o nome do ficheiro à sua localização
-               string nomeFinalDaImagem = 
+               string nomeFinalDaImagem =
                   Path.Combine(nomePastaOndeGuardarImagem, nomeImagem);
-               
+
                // guardar a imagem no disco rigído
                using var stream = new FileStream(
-                  nomeFinalDaImagem,FileMode.Create
+                  nomeFinalDaImagem, FileMode.Create
                   );
                await ImagemLogo.CopyToAsync(stream);
             }
