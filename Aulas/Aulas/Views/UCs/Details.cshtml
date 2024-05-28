@@ -35,7 +35,16 @@
          @Html.DisplayNameFor(model => model.Curso)
       </dt>
       <dd class="col-sm-10">
+         <a asp-action="Details"
+            asp-controller="Cursos"
+            asp-route-id="@Model.CursoFK">
          @Html.DisplayFor(model => model.Curso.Nome)
+         </a><br />
+         <img src="~/Imagens/@Model.Curso.Logotipo"
+              alt="logótipo do curso @Model.Curso.Nome"
+              title="@Model.Curso.Nome"
+              width="100px"
+              />
       </dd>
 
       @* lista dos professores da UC *@
@@ -45,7 +54,11 @@
       <dd class="col-sm-10">
          <ul>
             @foreach (var prof in Model.ListaProfessores) {
-               <li>@prof.Nome</li>
+               <li>
+                  <a asp-action="Details" 
+                     asp-controller="Professores" 
+                     asp-route-id="@prof.Id">@prof.Nome</a>
+               </li>
             }
          </ul>
       </dd>
