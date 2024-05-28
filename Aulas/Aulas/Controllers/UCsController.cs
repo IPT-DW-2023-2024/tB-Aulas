@@ -31,15 +31,22 @@ namespace Aulas.Controllers {
          if (id == null) {
             return NotFound();
          }
-
-         var unidadesCurriculares = await _context.UCs
-             .Include(u => u.Curso)
-             .FirstOrDefaultAsync(m => m.Id == id);
-         if (unidadesCurriculares == null) {
+         // procura os dados da UC
+         // em SQL: SELECT *
+         //         FROM UnidadesCurriculares uc INNER JOIN Cursos c On uc.CursoFK=c.Id
+         //                                      INNER JOIN ProfessoresUnidadesCurriculares puc ON pc.UCFK=uc.ID
+         //                                      INNER JOIN Professores p ON puc.ProfFK=p.Id
+         //         WHERE uc.Id=id
+         // en LINQ:
+         var unidadeCurricular = await _context.UCs
+                                               .Include(u => u.Curso)
+                                               .Include(u => u.ListaProfessores)
+                                               .FirstOrDefaultAsync(m => m.Id == id);
+         if (unidadeCurricular == null) {
             return NotFound();
          }
 
-         return View(unidadesCurriculares);
+         return View(unidadeCurricular);
       }
 
       // GET: UCs/Create
