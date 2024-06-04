@@ -1,74 +1,78 @@
 ﻿@model Aulas.Models.UnidadesCurriculares
 
 @{
-   ViewData["Title"] = "Adicionar";
+    ViewData["Title"] = "Adicionar";
 }
 
 <h1>Adicionar Unidade Curricular</h1>
 
 <hr />
 <div class="row">
-   <div class="col-md-4">
-      <form asp-action="Create">
-         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-         <div class="form-group">
-            <label asp-for="Nome" class="control-label"></label>
-            <input asp-for="Nome" class="form-control" />
-            <span asp-validation-for="Nome" class="text-danger"></span>
-         </div>
-         <div class="form-group">
-            <label asp-for="AnoCurricular" class="control-label"></label>
-            <input asp-for="AnoCurricular" class="form-control" />
-            <span asp-validation-for="AnoCurricular" class="text-danger"></span>
-         </div>
-         <div class="form-group">
-            <label asp-for="Semestre" class="control-label"></label>
-            <input asp-for="Semestre" class="form-control" />
-            <span asp-validation-for="Semestre" class="text-danger"></span>
-         </div>
+            <div class="form-group">
+                <label asp-for="Nome" class="control-label"></label>
+                <input asp-for="Nome" class="form-control" />
+                <span asp-validation-for="Nome" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AnoCurricular" class="control-label"></label>
+                <input asp-for="AnoCurricular" class="form-control" />
+                <span asp-validation-for="AnoCurricular" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Semestre" class="control-label"></label>
+                <input asp-for="Semestre" class="form-control" />
+                <span asp-validation-for="Semestre" class="text-danger"></span>
+            </div>
 
-         <div class="form-group">
-            <label asp-for="CursoFK" class="control-label"></label>
-            <select asp-for="CursoFK" class="form-control" asp-items="ViewBag.CursoFK">
-               <option value="-1">-- Escolha um curso --</option>
-            </select>
-         </div>
+            <div class="form-group">
+                <label asp-for="CursoFK" class="control-label"></label>
+                <select asp-for="CursoFK" class="form-control" asp-items="ViewBag.CursoFK">
+                    <option value="-1">-- Escolha um curso --</option>
+                </select>
+            </div>
 
-         @* listar os professores *@
-         <div class="form-group">
-            <label class="control-label">Professores</label>
-            @foreach (var prof in (List<Professores>)ViewData["listaProfessores"] ?? Enumerable.Empty<Professores>()    ) {
-            // <input type="checkbox" /> @prof.Nome<br />
-               <div class="form-check">
-                  <input class="form-check-input" 
-                         type="checkbox" 
-                         value="@prof.Id"
-                         name="escolhaProfessores"
-                  >
-                  <label class="form-check-label" for="flexCheckDefault">
-                     @prof.Nome
-                  </label>
-               </div>
+
+            @if (User.IsInRole("Administrativo")) {
+                @* listar os professores *@
+                <div class="form-group">
+                    <label class="control-label">Professores</label>
+                    @foreach (var prof in (List<Professores>)ViewData["listaProfessores"] ?? Enumerable.Empty<Professores>()) {
+                        // <input type="checkbox" /> @prof.Nome<br />
+                        <div class="form-check">
+                            <input class="form-check-input"
+                                   type="checkbox"
+                                   value="@prof.Id"
+                                   name="escolhaProfessores">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                @prof.Nome
+                            </label>
+                        </div>
+                    }
+                </div>
+            }
+            else {
+                <input type="hidden" value="0" name="escolhaProfessores" />
             }
 
-         </div>
-
-         <div class="form-group">
-            <br />
-            <input type="submit" value="Adicionar" class="btn btn-primary" />
-            <br />
-         </div>
-      </form>
-   </div>
+            <div class="form-group">
+                <br />
+                <input type="submit" value="Adicionar" class="btn btn-primary" />
+                <br />
+            </div>
+        </form>
+    </div>
 </div>
 
 <div>
-   <a asp-action="Index">Voltar à listagem</a>
+    <a asp-action="Index">Voltar à listagem</a>
 </div>
 
 @section Scripts {
-   @{
-      await Html.RenderPartialAsync("_ValidationScriptsPartial");
-   }
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
