@@ -1,42 +1,71 @@
 ﻿@model Aulas.Models.UnidadesCurriculares
 
 @{
-    ViewData["Title"] = "Details";
+   ViewData["Title"] = "Unidade Curricular";
 }
 
-<h1>Details</h1>
+<h1>Detalhes da Unidade Curricular</h1>
+<h4>@Model.Nome</h4>
 
 <div>
-    <h4>UnidadesCurriculares</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Nome)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Nome)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.AnoCurricular)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.AnoCurricular)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Semestre)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Semestre)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Curso)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Curso.Id)
-        </dd>
-    </dl>
+   <hr />
+   <dl class="row">
+      <dt class="col-sm-2">
+         @Html.DisplayNameFor(model => model.Nome)
+      </dt>
+      <dd class="col-sm-10">
+         @Html.DisplayFor(model => model.Nome)
+      </dd>
+
+      <dt class="col-sm-2">
+         @Html.DisplayNameFor(model => model.AnoCurricular)
+      </dt>
+      <dd class="col-sm-10">
+         @Html.DisplayFor(model => model.AnoCurricular)
+      </dd>
+
+      <dt class="col-sm-2">
+         @Html.DisplayNameFor(model => model.Semestre)
+      </dt>
+      <dd class="col-sm-10">
+         @Html.DisplayFor(model => model.Semestre)
+      </dd>
+
+      <dt class="col-sm-2">
+         @Html.DisplayNameFor(model => model.Curso)
+      </dt>
+      <dd class="col-sm-10">
+         <a asp-action="Details"
+            asp-controller="Cursos"
+            asp-route-id="@Model.CursoFK">
+         @Html.DisplayFor(model => model.Curso.Nome)
+         </a><br />
+         <img src="~/Imagens/@Model.Curso.Logotipo"
+              alt="logótipo do curso @Model.Curso.Nome"
+              title="@Model.Curso.Nome"
+              width="100px"
+              />
+      </dd>
+
+      @* lista dos professores da UC *@
+      <dt class="col-sm-2">
+         Professores
+      </dt>
+      <dd class="col-sm-10">
+         <ul>
+            @foreach (var prof in Model.ListaProfessores) {
+               <li>
+                  <a asp-action="Details" 
+                     asp-controller="Professores" 
+                     asp-route-id="@prof.Id">@prof.Nome</a>
+               </li>
+            }
+         </ul>
+      </dd>
+
+   </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+   <a asp-action="Edit" asp-route-id="@Model?.Id">Editar</a> |
+   <a asp-action="Index">Regressar à Lista</a>
 </div>

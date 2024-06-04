@@ -16,6 +16,8 @@ namespace Aulas.Models {
       [Key] // PK
       public int Id { get; set; }
 
+      [Required(ErrorMessage ="o {0} tem de ter um nome")]
+      [StringLength(50)]
       public string Nome { get; set; }
 
       public int AnoCurricular { get; set; }
