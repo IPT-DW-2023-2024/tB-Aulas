@@ -16,10 +16,16 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 
-
-
+// referência ao serviço do Microsoft Identity
+// que faz a AUTENTICAÇÃO
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
+// a referência ao IdentityRole inicia o uso deste tipo de Autorização
+
+
+
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
